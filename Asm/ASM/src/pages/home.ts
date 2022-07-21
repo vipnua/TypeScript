@@ -1,9 +1,12 @@
+
+import { get } from "../api/products";
 import footerClient from "../components/client/footer";
 import headerClient from "../components/client/header";
+import { Product } from "../models/products";
 
  const Home ={
     async render(){
-        
+        const {data:Products} =  await get('')
         return /*html*/`
         ${headerClient.render()}
 
