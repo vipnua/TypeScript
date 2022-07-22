@@ -8,8 +8,8 @@ export const getAll = () => {
 export const getOne = (id:String) => {
     return instance.get(`/products/${id}`);
 }
-export const add = () => {
-    return instance.post(`/products/`);
+export const add = (data:any) => {
+    return instance.post(`/products/`,data);
 }
 export const update = (id:String,data:any) => {
     return instance.put(`/products/${id}`,data);
@@ -17,3 +17,4 @@ export const update = (id:String,data:any) => {
 export const remove = (id:String) => {
     return instance.delete(`/products/${id}`);
 }
+

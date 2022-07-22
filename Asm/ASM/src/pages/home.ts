@@ -18,7 +18,7 @@ import { Product } from "../models/products";
         })
        
         
-        if(localStorage.getItem('cellphone') != ''){
+        if(localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null|| undefined){
             const retrievedObject:any = localStorage.getItem('cellphone');
             let cellphone =  JSON.parse(retrievedObject);
             Cellphone = cellphone;
@@ -26,7 +26,6 @@ import { Product } from "../models/products";
             let cellphone:Product[] = datacellphone.data;
             cellphone = Cellphone;      
         }
-        
         return /*html*/`
         ${headerClient.render()}
 
@@ -46,9 +45,9 @@ import { Product } from "../models/products";
 
         <h1 class="px-60 py-3">ĐIỆN THOẠI NỔI BẬT NHẤT</h1>
         <div class="grid gap-2 grid-cols-7 px-20">
-        ${Cellphone.map(cell => /*html*/`
+        ${Cellphone?.map(cell => /*html*/`
                 <div class="box p-4">
-                    <div class="flex justify-center p-2"><img class="" src="${cell.images.thumbnail}" width="160px"></div>
+                    <div class="flex justify-center p-2"><img class="" src="${cell.images?.thumbnail}" width="160px"></div>
                     <h2 class="pb-6">${cell.name}</h2>
                     <div class="flex">
                         <span class="basis-6/12 text-red-600">${(priceToVnd(Number(cell.sellerPrice)))}</span>

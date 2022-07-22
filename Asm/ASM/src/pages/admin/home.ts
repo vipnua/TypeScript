@@ -1,4 +1,4 @@
-import { apiGet, getAll } from "../../api/products";
+import { apiGet, getAll, remove } from "../../api/products";
 import AdminHeader from "../../components/admin/header";
 import { priceToVnd, reRender } from "../../config";
 import { Product } from "../../models/products";
@@ -13,7 +13,8 @@ const homeadmin ={
         categories = categories.filter(function(item, pos) {
             return categories.indexOf(item) == pos;
         })
-        if(localStorage.getItem('cellphone') != ''){
+        
+        if(localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null){
             const retrievedObject:any = localStorage.getItem('cellphone');
             let cellphone =  JSON.parse(retrievedObject);
             Cellphone = cellphone;
@@ -44,17 +45,16 @@ const homeadmin ={
                                             <div>Danh mục sản phẩm</div>
                                             <div>
 
-                                                    <select id="cars" name="cars">
-                                                    <option value="volvo">Volvo XC90</option>
-
-                                                    </select>
+                                            <select id="category" name="category">
+                                            ${categories.map(c => ` <option value="${c}">${c}</option>`).join('')}            
+                                             </select>
                                                 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="basis-1/2">
-                                        <div class="flex justify-end"><img class="pr-16" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658504103/Icon_lo8cnj.png"></div>
+                                        <div class="flex justify-end"><a href="/admin/add"><img class="pr-16" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658504103/Icon_lo8cnj.png"></a></div>
                                 </div>
                             </div>
 
@@ -75,17 +75,20 @@ const homeadmin ={
                                 <tbody>
                                 
                                 ${Cellphone.map(cell =>               
-                                    `<tr>
+                                    /*html*/`<tr>
                                     <td class="border-y border-[#DEE2E6] text-center px-1">${cell.id}</td>
                                     <td class="border-y border-[#DEE2E6] text-center px-1">${cell.name}</td>
                                     <td class="border-y border-[#DEE2E6] text-center px-1">${priceToVnd(Number(cell.originalPrice))}</td>
                                     <td class="border-y border-[#DEE2E6] text-center px-1">${cell.description}</td>
                                     <td class="border-y border-[#DEE2E6] text-center px-1">Ẩn</td>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">Thao tác</td>
+                                    <td class="border-y border-[#DEE2E6] text-center px-1">
+                                   
+                                    <a class="bg-yellow-300 rounded px-1 py-1 my-1" href="/admin/update/${cell.id}">Sửa</a>
+                                    <button id="remove" class="bg-red-500 rounded px-1 py-1 my-1" data-id="${cell.id}">Xóa</button>
+                                    </td>
                                     </tr>
                                     `).join('')}
-                                
-                               
+                                                     
                                 </tbody>
                             
                             </div>
@@ -99,11 +102,31 @@ const homeadmin ={
         const {data:data} = await getAll();
         const category:any = document.querySelectorAll('#cate');
         // console.log("category",category)
+        const products:any = document.querySelectorAll('#remove');
+        
+        for (let product of products) {
+            product.addEventListener('click', async (e:any) => {
+            e.preventDefault();
+            const id = product.dataset.id;
+            
+                const confirm = window.confirm('Are you sure you want to remove this product?');
+                if(confirm){
+                    const data = await remove(id) ;
+                  
+                    reRender('#app',homeadmin);
+                    if(data){
+                        alert('Remove product');
+                    }
+                }
+               
+            })
+        }
+    
         for (const categories of category) {
             categories.addEventListener('click', (e: any) => 
             {e.preventDefault()
                 const elementcate = categories.dataset.id;            
-               const followcate =data.filter((item: { category: any } )=> { return item.category === elementcate});
+                const followcate =data.filter((item: { category: any } )=> { return item.category === elementcate});
                 localStorage.clear();
                 localStorage.setItem('cellphone',JSON.stringify(followcate))            
                 reRender('#app',homeadmin)

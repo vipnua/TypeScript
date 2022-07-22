@@ -1,12 +1,13 @@
-import { add, getAll } from "../../api/products";
+import { add, getAll, getOne, update } from "../../api/products";
 import AdminHeader from "../../components/admin/header";
 import { uploadFile } from "../../config";
 import { Product } from "../../models/products";
 
-const addProduct = {
-    async render(){
-
-          const data =  await getAll();
+const updateProduct = {
+    async render(id:any){
+        const data =  await getAll();
+          const dataone =  await (await getOne(id)).data;
+          console.log(dataone);
           const category:Product[] = data.data;
           let categories = category.map(i => i.category)
           categories = categories.filter(function(item, pos) {
@@ -14,7 +15,7 @@ const addProduct = {
           })
             return /*html*/`
             ${AdminHeader.render()}
-                   <h1 class=" pl-3 py-2 pt-5 text-[#5F5E61] text-2xl"> Thêm sản phẩm mới </h1>
+                   <h1 class=" pl-3 py-2 pt-5 text-[#5F5E61] text-2xl"> Sửa sản phẩm </h1>
             <form id="addform"> 
                 <div class="flex">
                     <div class="basis-5/12">
@@ -22,15 +23,14 @@ const addProduct = {
                                     <div class="flex flex-col justify-center">
                                         <div class="flex justify-center">
                                         <img class="profile-pic" src="">
-                                        <img class="" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658504103/Icon_lo8cnj.png" width="40"></div>
+                                        <img class="imageshow" src="${dataone.images.image}" width="242"></div>
                                         <input type="file" name="image" id="image" data-max-file-size="3MB"
-                                        data-max-files="3" class=" absolute opacity-0 bottom-15 w-20 h-20"> 
-                                        <span class="text-xl text-[#3D5170] py-2">Thêm ảnh</span>               
+                                        data-max-files="3" class=" absolute opacity-0 bottom-15 w-20 h-20">              
                                     </div>
                             </div>
                             <div>
                             <div class="flex justify-center"> 
-                            <textarea class="w-3/4 border rounded flex" id="description" name="description" rows="4" cols="50" placeholder="Mô tả ngắn" ></textarea></div>
+                            <textarea class="w-3/4 border rounded flex" id="description" name="description" rows="4" cols="50" placeholder="Mô tả ngắn" >${dataone.description}</textarea></div>
                                       
                             </div>
                         </div>
@@ -38,22 +38,22 @@ const addProduct = {
                             <div class="py-3 border-b-2">Thông tin sản phẩm</div>
                             <div class="flex flex-col py-2"> 
                                 <label class="py-2">Tên sản phẩm</label>
-                                <input class="border rounded py-1" type="text" name="name" id="name">
+                                <input class="border rounded py-1" type="text" name="name" id="name" value="${dataone.name}">
                             </div>
                             <div class="flex"> 
                                 <div class="basis-1/2 flex flex-col">
                                     <label>Giá gốc</label>
-                                    <input class="border rounded py-1 w-11/12" type="number" name="originalPrice" id="originalPrice"  >
+                                    <input class="border rounded py-1 w-11/12" type="number" name="originalPrice" id="originalPrice" value="${dataone.originalPrice}" >
                                 </div>
                                 <div class="basis-1/2 flex flex-col">
                                     <label>Giá khuyến mãi</label>
-                                    <input class="border rounded py-1 w-11/12" type="number" name="sellerPrice" id="sellerPrice" >
+                                    <input class="border rounded py-1 w-11/12" type="number" name="sellerPrice" id="sellerPrice" value="${dataone.sellerPrice}">
                                 </div>
                             </div>
                             <div class="flex flex-col py-2"> 
                                 <label class="py-2">Danh mục</label>
                                 <select class="border rounded py-1 w-1/2" id="category" name="category">
-                                ${categories.map(c => ` <option value="${c}">${c}</option>`).join('')}            
+                                ${categories.map(c => ` <option ${(c==dataone.category) ? "selected" : ""} value="${c}">${c}</option>`).join('')}            
                                  </select>
                             </div>
                             <div class=""> 
@@ -66,7 +66,7 @@ const addProduct = {
                            </div>
                             <div class=""> 
                                 <label>Mô tả dài</label>
-                                <textarea class="w-full border rounded" id="longDescription" name="longDescription" rows="4" cols="50"></textarea>
+                                <textarea class="w-full border rounded" id="longDescription" name="longDescription" rows="4" cols="50">${dataone.longDescription}</textarea>
                                 
                                 
                             </div>
@@ -76,7 +76,7 @@ const addProduct = {
             </form>
             `
     },
-    afterRender(){
+    afterRender(id:any){
         const form = document.querySelector('#addform')
         const name:any = document.querySelector('#name');
         const originalPrice:any = document.querySelector('#originalPrice');
@@ -85,12 +85,7 @@ const addProduct = {
         const longDescription:any = document.querySelector('#longDescription');
         const description:any = document.querySelector('#description');
         const image:any = document.querySelector('#image');
-        // const demoimage:any =  document.querySelector('.profile-pic')
-
-        // image.addEventListener('load',(e)=>{
-        //     e.preventDefault();
-        //     console.log(image)
-        // })
+        console.log(image.value)
 
     form?.addEventListener('submit',async (e)=>{
             e.preventDefault();
@@ -106,14 +101,17 @@ const addProduct = {
                     originalPrice.focus();
                     return false;
                  }   
-                 if(image.files[0] == undefined) {
-                    alert( "làm ơn nhập ảnh" );
-                    image.focus();
+                
+                  if(image.files[0] == undefined) {
+                        alert( "làm ơn nhập ảnh" );
+                        image.focus();
                     return false;
-                 }            
+                 }   
+                            
                 else {
-                    let urlimage = null;
-              if(image.value){
+                    
+              let urlimage = null;
+              if(image){
               urlimage =  await (await uploadFile(image.files[0])).data.url
             }
             const product ={
@@ -126,7 +124,10 @@ const addProduct = {
                     images:{thumbnail:urlimage,
                     image:urlimage} ,
             }
-            const data =  await add(product).then(result=>alert('thanh cong'));
+            const data = await update(id,product)
+            if(data){
+                alert('Update Successfully');
+            }
                 }
              }
             validate();          
@@ -134,5 +135,5 @@ const addProduct = {
     })
     }
 }
-export default addProduct
+export default updateProduct
 
