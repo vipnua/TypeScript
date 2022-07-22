@@ -1,6 +1,6 @@
 import instance from "./config"
-export const get = (config:String) =>{
-    return instance.get(`/${config}`);
+export const apiGet = (config:String) =>{
+    return instance.get(`${config}`);
 }
 export const getAll = () => {
     return instance.get('/products');
