@@ -2,10 +2,10 @@ export class Product {
     name: String;
     originalPrice: Number;
     sellerPrice: Number;
-    description:String;
-    longDescription: String;
+    description?:String;
+    longDescription?: String;
     category: String;
-    images: any;
+    images?: any;
     id: String;
     constructor(name:String, originalPrice:Number,sellerPrice:Number,description:String,longDescription:String,category:String,images:any,id:String) 
     {

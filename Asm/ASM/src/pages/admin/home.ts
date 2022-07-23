@@ -13,15 +13,25 @@ const homeadmin ={
         categories = categories.filter(function(item, pos) {
             return categories.indexOf(item) == pos;
         })
-        
-        if(localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null){
+        const paramUrl = new URLSearchParams(location.search);
+
+        const search = paramUrl.get('search');
+
+        if(search){
+            const datacellphone = await apiGet(`/products?q=${search}`);
+            let cellphone:Product[] = datacellphone.data;
+                Cellphone=cellphone;
+                console.log(cellphone)
+        }else{
+            if(localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null){
             const retrievedObject:any = localStorage.getItem('cellphone');
             let cellphone =  JSON.parse(retrievedObject);
             Cellphone = cellphone;
         } else{
             let cellphone:Product[] = datacellphone.data;
             cellphone = Cellphone;      
-        }
+        }}
+        
         
           return /*html*/`
           ${AdminHeader.render()}
@@ -99,6 +109,16 @@ const homeadmin ={
           `
       },
       async afterRender(){
+
+        const formSearch:any = document.querySelector('#sreach');
+        const btnSearch:any = document.querySelector('#btnSearch');
+        btnSearch.addEventListener('click', (e:any)=> {
+                e.preventDefault();
+                history.replaceState(null, '',`?search=${formSearch.value}`);
+                reRender('#app',homeadmin);
+        });
+
+
         const {data:data} = await getAll();
         const category:any = document.querySelectorAll('#cate');
         // console.log("category",category)

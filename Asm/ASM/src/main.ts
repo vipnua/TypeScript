@@ -2,11 +2,11 @@
 import './style.css';
 import Navigo from 'navigo';
 import Home from './pages/home';
-import headerClient from './components/client/header';
 import signUp from './pages/signup';
 import homeadmin from './pages/admin/home';
 import addProduct from './pages/admin/add';
 import updateProduct from './pages/admin/update';
+import productDetail from './pages/detail';
 const router = new Navigo('/');
 const app = document.querySelector<HTMLDivElement>('#app')!;
 type ComponentBase = {
@@ -21,6 +21,7 @@ const print = async(component:ComponentBase,params?: any)=>{
 }
 router.on({
   '/':()=>print(Home,""),
+  '/product/:id':(param:any)=>{const id = +param.data.id;print(productDetail,id);},
   '/admin':()=>print(homeadmin,""),
   '/admin/add':()=>print(addProduct,""),
   '/admin/update/:id':(param:any)=>{const id = +param.data.id;print(updateProduct,id);},
