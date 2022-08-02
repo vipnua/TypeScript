@@ -16,12 +16,11 @@ const signUp ={
                             <button class="bg-red-500 text-center text-white rounded w-full my-3 py-3" > Đăng ký</button>
 
                            <div class=""> 
-                           <h2 class="text-center">Hoặc ký bằng pỏnhúp</h2>
+                           <h2 class="text-center">Hoặc ký bằng</h2>
                             <div class="flex justify-center px-3 py-3">
-                                  <img class="" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658816131/iqcrg8uyzj2unw70kina.png" width="58">
-                                  <img src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658816204/lf5cd7yllaf6crmjunze.png" width="58">
-                                  <img class="rounded-xl" src=" https://res.cloudinary.com/dtd8tra0o/image/upload/v1658816400/jsytvcqdm25bxpyixur1.jpg" width="58">
-                                 
+                                  <img class="rounded-xl mx-1 w-14" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658816131/iqcrg8uyzj2unw70kina.png" width="58">
+                                  <img class="rounded-xl mx-1 w-14" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658816204/lf5cd7yllaf6crmjunze.png" width="58">
+                                  <img class="rounded-xl mx-1 w-14" src=" https://res.cloudinary.com/dtd8tra0o/image/upload/v1658816400/jsytvcqdm25bxpyixur1.jpg" width="58">                               
                             </div>
                            </div>
 

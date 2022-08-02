@@ -13,8 +13,9 @@ render(){
             <div class="px-2 w-1/4 flex"><img class="w-7 h-7 mt-3 mr-1" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658162816/Frame_iizmu5.svg">Tra cứu đơn hàng</div>
             <div class="px-2 w-1/4 flex "><div class="static "><img class="w-7 h-7 mt-3 mr-1 " src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658162893/Frame_1_sgwuzw.png"><span class="absolute" style="margin-top:-27px; margin-left:6px" >0</span></div>Giỏ hàng</div>
         </div>
-        <div class="basis-2/12">
-             <div class="px-2 w-1/4 flex pl-10 mt-2"><a href="/admin">Đăng nhập</a></div>
+        <div class="basis-2/12 flex">
+             <div class="px-2 w-1/4 flex pl-10 mt-2"><a href="/signin">Đăng nhập</a></div>
+             <div class="px-2 w-1/4 flex pl-10 mt-2"><a href="/signup">Đăng ký</a></div>
         </div>
     </div>
     
