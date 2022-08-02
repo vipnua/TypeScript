@@ -234,32 +234,6 @@
         "image": "https://cdn.tgdd.vn/Products/Images/54/245808/bluetooth-true-wireless-mozard-air-6-xanh-2-org.jpg"
       },
       "id": 19
-    },
-    {
-      "name": "123123",
-      "originalPrice": "213123",
-      "sellerPrice": "1",
-      "category": "Điện thoại",
-      "longDescription": "1",
-      "description": "123123",
-      "images": {
-        "thumbnail": "http://res.cloudinary.com/dtd8tra0o/image/upload/v1658532316/rlz0k7z4ejxc5b7tnjbd.jpg",
-        "image": "http://res.cloudinary.com/dtd8tra0o/image/upload/v1658532316/rlz0k7z4ejxc5b7tnjbd.jpg"
-      },
-      "id": 20
-    },
-    {
-      "name": "123123 update",
-      "originalPrice": "213123",
-      "sellerPrice": "1",
-      "category": "Điện thoại",
-      "longDescription": "1",
-      "description": "123123",
-      "images": {
-        "thumbnail": "http://res.cloudinary.com/dtd8tra0o/image/upload/v1658532339/ephjq1tfr63xkjykumyz.ico",
-        "image": "http://res.cloudinary.com/dtd8tra0o/image/upload/v1658532339/ephjq1tfr63xkjykumyz.ico"
-      },
-      "id": 21
     }
   ]
 }

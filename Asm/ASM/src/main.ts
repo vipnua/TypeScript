@@ -7,6 +7,8 @@ import homeadmin from './pages/admin/home';
 import addProduct from './pages/admin/add';
 import updateProduct from './pages/admin/update';
 import productDetail from './pages/detail';
+import signIn from './pages/signin';
+import cartProduct from './cartProduct';
 const router = new Navigo('/');
 const app = document.querySelector<HTMLDivElement>('#app')!;
 type ComponentBase = {
@@ -24,7 +26,10 @@ router.on({
   '/product/:id':(param:any)=>{const id = +param.data.id;print(productDetail,id);},
   '/admin':()=>print(homeadmin,""),
   '/admin/add':()=>print(addProduct,""),
+  '/cartProduct':()=>print(cartProduct,''),
   '/admin/update/:id':(param:any)=>{const id = +param.data.id;print(updateProduct,id);},
   '/signup':()=>print(signUp,''),
+  '/signin':()=>print(signIn,''),
+  
 })
 router.resolve();
