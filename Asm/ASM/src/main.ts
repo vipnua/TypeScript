@@ -9,7 +9,7 @@ import updateProduct from './pages/admin/update';
 import productDetail from './pages/detail';
 import signIn from './pages/signin';
 import cartProduct from './cartProduct';
-const router = new Navigo('/');
+const router = new Navigo('/',{hash:true});
 const app = document.querySelector<HTMLDivElement>('#app')!;
 type ComponentBase = {
   render: (id:any) => Promise<string>;
@@ -21,6 +21,7 @@ const print = async(component:ComponentBase,params?: any)=>{
     await component.afterRender(params)
   }
 }
+
 router.on({
   '/':()=>print(Home,""),
   '/product/:id':(param:any)=>{const id = +param.data.id;print(productDetail,id);},

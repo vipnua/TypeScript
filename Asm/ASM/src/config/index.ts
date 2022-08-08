@@ -28,4 +28,18 @@ export const uploadFile = (file:any) => {
     });
     return res;
   };
+  export const percent = (seller:any,origin:any) =>{
+      if(!seller){
+          return ''
+      }
+      if(origin){
+          return '-' + (100- Math.round(seller * 100 / origin)) + '%' 
+      }
+  }
+  export const ifelement =(e:any) => {
+        if(!e){
+            return
+        }
+        return e
+  }
 

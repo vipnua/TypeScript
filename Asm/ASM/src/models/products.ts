@@ -7,6 +7,7 @@ export class Product {
     category: String;
     images?: any;
     id: String;
+    rate?:any;
     constructor(name:String, originalPrice:Number,sellerPrice:Number,description:String,longDescription:String,category:String,images:any,id:String) 
     {
         this.name = name; 

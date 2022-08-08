@@ -17,4 +17,3 @@ export const update = (id:String,data:any) => {
 export const remove = (id:String) => {
     return instance.delete(`/products/${id}`);
 }
-
