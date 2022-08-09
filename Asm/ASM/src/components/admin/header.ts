@@ -18,8 +18,13 @@ const AdminHeader = {
 					</div>
 					</div>
 					
-					<div class="basis-1/5 "> <a href="/" ><div class="pt-4 px-3">Xin chào <span>Name</span></div>  </a></div>
-
+					<div class="basis-1/5 flex">
+					 <a href="/" ><div class="pt-4 px-3 basis-1/2"><span id="nameadmin"></span></div>  
+					 </a>
+					 </div href="" class=" basis-1/2">
+					 <button id="signout" class="px-2 w-1/4 flex pl-10 mt-2">Đăng xuất</button>
+					 </div>
+					
 			</div>
 		
             `

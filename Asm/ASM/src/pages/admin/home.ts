@@ -110,8 +110,30 @@ const homeadmin ={
       },
       async afterRender(){
 
-        const formSearch:any = document.querySelector('#sreach');
-        const btnSearch:any = document.querySelector('#btnSearch');
+        const formSearch = document.querySelector('#sreach') as HTMLInputElement;
+        const btnSearch = document.querySelector('#btnSearch') as HTMLInputElement;
+        const elementname = document.querySelector('#nameadmin') as HTMLInputElement;
+        const signout = document.querySelector('#signout') as HTMLInputElement;
+        let storageUser = localStorage.getItem('User');       
+        const nameadmin = () =>{         
+            const name = JSON.parse(storageUser).email
+            if(storageUser){
+                elementname.innerHTML = `<div class="text-red-500 px-2 font-bold ">${name}</div>`
+                signout.addEventListener('click',(e)=>{
+                    e.preventDefault()
+                    const confirm= window.confirm('Bạn muốn đăng xuất khỏi tài khoản ko?')
+                     if(confirm){
+                         localStorage.removeItem('User');
+                         if(!localStorage.getItem('User')){
+                             window.alert('Bạn đã đăng xuất')
+                             location.href = ("/")
+                         }
+                     }       
+                    })
+            }
+        }
+     
+        nameadmin();
         btnSearch.addEventListener('click', (e:any)=> {
                 e.preventDefault();
                 history.replaceState(null, '',`?search=${formSearch.value}`);
