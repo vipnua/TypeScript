@@ -217,11 +217,11 @@ import { Product } from "../models/products";
                 
                 if(elementcate == 'all'){
                     followcate = data;
-                    localStorage.clear();
+                    localStorage.removeItem('cellphone');
                     localStorage.setItem('cellphone',JSON.stringify(followcate))   
                 } else{
                     followcate =data.filter((item: { category: any } )=> { return item.category === elementcate});
-                    localStorage.clear();
+                    localStorage.removeItem('cellphone');
                     localStorage.setItem('cellphone',JSON.stringify(followcate))            
                 }          
                 reRender('#app',Home)

@@ -102,14 +102,13 @@ const signIn ={
                    const dataform = await signin(data)
                    if(dataform){   
                        localStorage.setItem('User',JSON.stringify(data))
-                       const targetUser = User.data.filter(user => user.email == data.email);
+                       const targetUser = User.data.filter((user: { email: any; }) => user.email == data.email);
                        if(targetUser[0].role == 1){
                         alert("Đăng nhập admin thành công trở về Admin!");
                         location.href = ('/admin');
                         console.log("admin?")
                        }else{  alert("Đăng nhập thành công trở về trang chủ!");
-                       location.href = ('/');}
-                     
+                       location.href = ('/');}                  
                    }         
                } catch (error) {
                    alert("Sai tên đăng nhập hoặc mật khẩu")
